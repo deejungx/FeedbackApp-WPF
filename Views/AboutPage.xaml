@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="RestaurantFeedbackApp.Views.AboutPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RestaurantFeedbackApp"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            Background="{DynamicResource MaterialDesignPaper}"
+            TextElement.FontWeight="Medium"
+            TextElement.FontSize="14"
+            FontFamily="{materialDesign:MaterialDesignFont}"
+             mc:Ignorable="d" 
+             d:DesignHeight="589" d:DesignWidth="335">
+    <Grid>
+        <materialDesign:TransitioningContent
+            x:Name="TransitioningContentSlide"
+            OpeningEffect="{materialDesign:TransitionEffect FadeIn, Duration=0:0:0.7}">
+            <TextBlock>About</TextBlock>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</UserControl>

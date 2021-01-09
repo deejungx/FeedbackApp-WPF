@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="RestaurantFeedbackApp.Views.AdminLoginPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RestaurantFeedbackApp"
+             mc:Ignorable="d"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="{materialDesign:MaterialDesignFont}"
+             d:DesignHeight="589" d:DesignWidth="335">
+
+    <!-- 
+    
+        TO DO:
+    
+            - Use Hardcoded login credentials
+            - Simple validation
+            - On success, redirect to Dashboard
+
+        
+        DESIGN REFERENCE:
+    
+            - https://xd.adobe.com/view/75d19c73-09bf-4c6f-a49a-702184e7f202-2082/screen/839c104a-c9c7-4705-874a-5b2049dc7adf
+    
+    -->
+
+    <Grid>
+
+        <materialDesign:TransitioningContent
+            x:Name="TransitioningContentSlide"
+            OpeningEffect="{materialDesign:TransitionEffect FadeIn, Duration=0:0:0.7}">
+            <TextBlock>Admin Login</TextBlock>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</UserControl>
