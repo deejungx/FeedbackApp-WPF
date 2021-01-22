@@ -1,63 +1,86 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿// ReSharper disable ConvertToAutoProperty
+
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Xml.Schema;
+using CsvHelper.Configuration.Attributes;
 
 namespace RestaurantFeedbackApp.Model
 {
-    // ObservableObject implements INotifyPropertyChanged
     public class FeedbackModel : ObservableObject
     {
+
         private string _name;
         private string _email;
         private string _phone;
+        private ObservableCollection<ReviewModel> _reviews = new ObservableCollection<ReviewModel>();
+        private DateTime _submitDate;
+        private double _avgRating;
 
-        // Not sure if this is the right way to do it.
-        // I Don't know how to initialize dictionary keys to criterias.
-        private Dictionary<string, int> _ratings;
-
+        [Index(0)]
         public string Name
         {
             get => _name;
             set
             {
-                if (value == _name) return;
                 _name = value;
-                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged("Name");
             }
         }
 
+        [Index(1)]
         public string Email
         {
             get => _email;
             set
             {
-                if (value == _email) return;
                 _email = value;
-                OnPropertyChanged(nameof(Email));
+                OnPropertyChanged("Email");
             }
         }
 
+        [Index(2)]
         public string Phone
         {
             get => _phone;
             set
             {
-                if (value == _phone) return;
                 _phone = value;
-                OnPropertyChanged(nameof(Phone));
+                OnPropertyChanged("Phone");
             }
         }
 
-        public Dictionary<string, int> Ratings
+        [Index(3)]
+        public DateTime SubmitDate
         {
-            get => _ratings;
+            get => _submitDate;
             set
             {
-                if (value == _ratings) return;
-                _ratings = value;
-                OnPropertyChanged(nameof(Ratings));
+                _submitDate = value;
+                OnPropertyChanged("SubmitDate");
             }
         }
 
+        public ObservableCollection<ReviewModel> Reviews
+        {
+            get => _reviews;
+            set
+            {
+                _reviews = value;
+                OnPropertyChanged("Reviews");
+            }
+        }
+
+        public double AverageRating
+        {
+            get => _avgRating;
+            set
+            {
+                _avgRating = value;
+                OnPropertyChanged("AverageRating");
+            }
+        }
 
     }
 }

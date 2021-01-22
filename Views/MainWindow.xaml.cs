@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
+using RestaurantFeedbackApp.Annotations;
+using RestaurantFeedbackApp.ViewModel;
 
 namespace RestaurantFeedbackApp.Views
 {
@@ -61,11 +64,11 @@ namespace RestaurantFeedbackApp.Views
             {
                 case 0:
                     GridMain.Children.Clear();
-                    GridMain.Children.Add(new AdminLoginPage());
+                    GridMain.Children.Add(new FeedbackPage());
                     break;
                 case 1:
                     GridMain.Children.Clear();
-                    GridMain.Children.Add(new FeedbackPage());
+                    GridMain.Children.Add(new AdminLoginPage());
                     break;
                 case 2:
                     GridMain.Children.Clear();

@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:viewModel="clr-namespace:RestaurantFeedbackApp.ViewModel"
-    xmlns:model="clr-namespace:RestaurantFeedbackApp.Model"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:domain="clr-namespace:RestaurantFeedbackApp.ViewModel"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+    d:DataContext="{d:DesignInstance Type=domain:FeedbackViewModel}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontWeight="Medium"
@@ -20,7 +20,7 @@
         TO DO:
     
             - Solve submitting feedback form with ratings included.
-            - Add Data validations (display using materialDesign snackbars)
+            - Add Data validations (display using materialDesign snack bar)
     
         Design Reference:
             
@@ -33,17 +33,14 @@
             <Setter Property="Margin" Value="0,8"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
         </Style>
-
-        <viewModel:FeedbackViewModel x:Key="feedbackView" />
-        <viewModel:CriteriaViewModel x:Key="criteriaView" />
-        <model:FeedbackModel x:Key="feedback" />
-
+        
+        <domain:FeedbackViewModel x:Key="FeedbackView"/>
     </UserControl.Resources>
 
     <materialDesign:TransitioningContent
             x:Name="TransitioningContentSlide"
-            OpeningEffect="{materialDesign:TransitionEffect FadeIn, Duration=0:0:0.7}"
-            DataContext="{Binding Source={StaticResource feedback}}">
+            OpeningEffect="{materialDesign:TransitionEffect FadeIn, Duration=0:0:0.7}" 
+            DataContext="{Binding Feedback, Mode=OneWay, Source={StaticResource FeedbackView}}" >
         <StackPanel Margin="10" 
                     VerticalAlignment="Top"
                     HorizontalAlignment="Center">
@@ -53,7 +50,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="150"/>
                         <RowDefinition MinHeight="350"/>
-                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/> 
                     </Grid.RowDefinitions>
 
                     <Grid Grid.Row="0" VerticalAlignment="Top">
@@ -65,7 +62,7 @@
                         </Grid.RowDefinitions>
 
                         <TextBox
-                            x:Name="txt_name"
+                            x:Name="TxtName"
                             Grid.Row="0"
                             materialDesign:HintAssist.Hint="Name"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -73,7 +70,7 @@
                             Text="{Binding Name, Mode=TwoWay}" />
 
                         <TextBox
-                            x:Name="txt_email"
+                            x:Name="TxtEmail"
                             Grid.Row="1"
                             materialDesign:HintAssist.Hint="Email"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -81,7 +78,7 @@
                             Text="{Binding Email, Mode=TwoWay}" />
                         
                         <TextBox
-                            x:Name="txt_phone"
+                            x:Name="TxtPhone"
                             Grid.Row="2"
                             materialDesign:HintAssist.Hint="Phone"
                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -104,9 +101,9 @@
                             
                             <!-- 
                             This should display list of criteria and rating bar.
-                            Key Value pairs should be properly binded for submit button
+                            Key Value pairs should be properly bind for submit button
                             to return the correct context. -->
-                            <ItemsControl ItemsSource="{Binding Mode=OneWay, Source={StaticResource criteriaView}}" >
+                            <ItemsControl ItemsSource="{Binding Reviews}"  >
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <Border
@@ -125,12 +122,18 @@
 
                                                 <TextBlock 
                                                     FontWeight="Bold" 
-                                                    Text="{Binding Title}"/>
+                                                    Text="{Binding Criteria, 
+                                                           Mode=TwoWay}" 
+                                                    ToolTip="{Binding Criteria, 
+                                                           Mode=TwoWay}"
+                                                    />
 
                                                 <materialDesign:RatingBar
                                                     Grid.Column="1"
-                                                    Value="3"
-                                                    x:Name="feedbackRatingBar" />     
+                                                    x:Name="feedbackRatingBar" 
+                                                    Value="{Binding Rating, 
+                                                            Mode=TwoWay}"
+                                                    />     
 
                                             </Grid>
 
@@ -155,14 +158,15 @@
 
                         <Button
                             Grid.Column="0"
-                            x:Name="button_refresh_form"
+                            x:Name="ButtonRefreshForm"
                             Margin="50 0 0 0"
                             Style="{StaticResource MaterialDesignIconButton}"
                             ToolTip="Click to Reset the Form" 
                             Command="{Binding ResetFormCommand, 
                                               Mode=OneWay, 
-                                              Source={StaticResource feedbackView}}"
-                            CommandParameter="{Binding}">
+                                              Source={StaticResource FeedbackView}}"
+                            CommandParameter="{Binding}" 
+                            IsCancel="True">
                             
                             <materialDesign:PackIcon 
                                 Kind="Refresh" 
@@ -172,14 +176,15 @@
 
                         <Button
                             Grid.Column="1"
-                            x:Name="button_submit_feedback"
+                            x:Name="ButtonSubmitFeedback"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             Width="140"
                             Content="Submit"
                             ToolTip="Click to Submit Feedback" 
                             Command="{Binding SubmitFeedbackCommand, 
-                                      Source={StaticResource feedbackView}}" 
-                            CommandParameter="{Binding}">
+                                      Source={StaticResource FeedbackView}}" 
+                            CommandParameter="{Binding}" 
+                            IsDefault="True">
                         </Button>
                         
                     </Grid>

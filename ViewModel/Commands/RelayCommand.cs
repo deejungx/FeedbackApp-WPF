@@ -19,10 +19,7 @@ namespace RestaurantFeedbackApp.ViewModel.Commands
         */
         public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException("execute");
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
 
@@ -44,7 +41,7 @@ namespace RestaurantFeedbackApp.ViewModel.Commands
         */
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute((T)parameter);
+            return _canExecute?.Invoke((T)parameter) ?? true;
         }
 
         /*
@@ -68,8 +65,8 @@ namespace RestaurantFeedbackApp.ViewModel.Commands
         */
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using RestaurantFeedbackApp.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -11,19 +10,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MaterialDesignThemes.Wpf;
 
 namespace RestaurantFeedbackApp.Views
 {
     /// <summary>
-    /// Interaction logic for FeedbackPage.xaml
+    /// Interaction logic for AddCriteriaDialog.xaml
     /// </summary>
-    public partial class FeedbackPage : UserControl
+    public partial class AddCriteriaDialog : UserControl
     {
-        public FeedbackPage()
+        public AddCriteriaDialog()
         {
             InitializeComponent();
         }
-
     }
 }

@@ -13,5 +13,6 @@ namespace RestaurantFeedbackApp
     /// </summary>
     public partial class App : Application
     {
+    
     }
 }

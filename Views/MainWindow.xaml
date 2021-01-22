@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:main="clr-namespace:RestaurantFeedbackApp.ViewModel"
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -20,7 +21,7 @@
     
         TO DO:
     
-            - Add materialDesign Snackbar to display error/success responses.
+            - Add materialDesign Snack bar to display error/success responses.
             - Replace GridMenu with materialDesign Drawer
     
     --> 
@@ -43,6 +44,9 @@
                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="60"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+
+        <main:MainViewModel x:Key="MainVm"/>
+
     </Window.Resources>
     
     <Window.Triggers>
@@ -54,7 +58,10 @@
         </EventTrigger>
     </Window.Triggers>
 
-    <Grid MouseDown="Grid_MouseDown">
+    <Grid MouseDown="Grid_MouseDown" 
+          DataContext="{Binding 
+          Mode=OneWay, 
+          Source={StaticResource MainVm}}">
 
         <Grid  
             x:Name="GridMain"
@@ -65,7 +72,7 @@
         
         <StackPanel VerticalAlignment="Top">
             <Grid Height="40"
-              Background="MediumSeaGreen">
+              Background="#263238">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="13*"/>
                     <ColumnDefinition Width="3*"/>
@@ -73,7 +80,7 @@
                 <Grid.Effect>
                     <DropShadowEffect BlurRadius="3" 
                                   ShadowDepth="2" 
-                                  Color="#FFAAAAAA"/>
+                                  Color="#212121"/>
                 </Grid.Effect>
                 <TextBlock Text="FeedbackApp"
                        Style="{StaticResource MaterialDesignHeadline3TextBlock}"
@@ -105,10 +112,10 @@
             x:Name="GridMenu" 
             Width="60" 
             HorizontalAlignment="Left" 
-            Background="MediumSeaGreen">
+            Background="#263238">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="3" ShadowDepth="2" 
-                                  Color="#FFAAAAAA"/>
+                                  Color="#212121"/>
             </Grid.Effect>
 
             <StackPanel>
@@ -135,7 +142,7 @@
                             Visibility="Collapsed"
                             Click="ButtonCloseMenu_Click">
                         <materialDesign:PackIcon 
-                            Foreground="MediumSeaGreen"
+                            Foreground="#263238"
                             Kind="ArrowLeft"/>
                     </Button>
                     <Button x:Name="ButtonOpenMenu"
@@ -148,7 +155,7 @@
                             HorizontalAlignment="Right"
                             Click="ButtonOpenMenu_Click">
                         <materialDesign:PackIcon 
-                            Foreground="MediumSeaGreen"
+                            Foreground="#263238"
                             Kind="Menu"/>
                     </Button>
                 </Grid>
@@ -156,7 +163,17 @@
                           Foreground="White" 
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                           SelectionChanged="ListViewMenu_SelectionChanged"
-                          SelectedIndex="1">
+                          SelectedIndex="0">
+                    <ListViewItem x:Name="ItemFeedback" Height="60" Cursor="Hand">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                                Kind="Star" 
+                                Height="25" Width="25" Margin="10"/>
+                            <TextBlock Text="Feedback" 
+                                       VerticalAlignment="Center" 
+                                       Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
                     <ListViewItem x:Name="ItemAdmin" Height="60" Cursor="Hand">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Login" 
@@ -164,16 +181,6 @@
                                                      Width="25" 
                                                      Margin="10"/>
                             <TextBlock Text="Admin" 
-                                       VerticalAlignment="Center" 
-                                       Margin="20 10"/>
-                        </StackPanel>
-                    </ListViewItem>
-                    <ListViewItem x:Name="ItemFeedback" Height="60" Cursor="Hand">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon 
-                                Kind="Star" 
-                                Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Feedback" 
                                        VerticalAlignment="Center" 
                                        Margin="20 10"/>
                         </StackPanel>
@@ -192,5 +199,7 @@
             </StackPanel>
         </Grid>
 
+        <materialDesign:Snackbar Background="#3f51b5" Foreground="White"
+            MessageQueue="{Binding MySnackbar }" />
     </Grid>
 </Window>
